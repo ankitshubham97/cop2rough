@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Notification</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Click Notify User Button</string>
+    <string name="admin_notifications">Notifications</string>
+    <string name="admin_logout">Logout</string>
+    <string-array name="adminSpinnerValues">
+        <item>Add User</item>
+        <item>Delete User</item>
+        <item>Update User</item>
+        <item>View User</item>
+    </string-array>
+
+</resources>
