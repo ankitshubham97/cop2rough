@@ -1,65 +1,17 @@
-    <?php
-
-         $con = mysql_connect("10.192.11.199:7080","root","");
-         if (!$con)
-           {
-             die('Could not connect: ' . mysql_error());
-           }
-
-           mysql_select_db("ex1", $con);
-
-
-           $v1=$_REQUEST['f1'];
-           $v2=$_REQUEST['f2'];
-           $v3=$_REQUEST['f3']; 
-
-
-              if($v1==NULL || $v2==NULL || $v3==NULL)
-             {
-
-
-                $r["re"]="Fill the all fields!!!";
-                 print(json_encode($r));
-                die('Could not connect: ' . mysql_error());
-             }
-
-
-            else
-          {
-           $i=mysql_query("select * from t1 where f1=$v1",$con);
-           $check='';
-                  while($row = mysql_fetch_array($i))
-                    {
-  
-                          $check=$row['f1'];
-
-                     }
-
-           
-                   if($check==NULL)
-                  {
-
-                        $q="insert into t1 values('$v1','$v2','$v3')";
-                        $s= mysql_query($q); 
-                        if(!$s)
-                          {
-                                $r["re"]="Inserting problem in batabase";
-                  
-                               print(json_encode($r));
-                           }
-                         else
-                          {
-                             $r["re"]="Record inserted successfully";
-                              print(json_encode($r));
-                           }
-             }
-            else
-             {
-               $r["re"]="Record is repeated";
-                 print(json_encode($r));
-      
-              } 
+<?php
+$user = 'root';
+$pass = '';
+try{
+$conn = new PDO('mysql:host=localhost:3306;dbname=androiddb', $user, $pass);
+$sql = 'insert into user values (:id , :name ,:password, :hostel)';
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id', $_GET['id'], PDO::PARAM_STR);
+$stmt->bindParam(':name', $_GET['name'], PDO::PARAM_STR);
+$stmt->bindParam(':password', $_GET['password'], PDO::PARAM_STR);
+$stmt->bindParam(':hostel', $_GET['hostel'], PDO::PARAM_STR);
+$stmt -> execute();
 }
- mysql_close($con);
-               
-    ?>  
+catch (PDOException $pe){
+die("Could not connect to the database :" . $pe->getMessage());
+}
+?>
